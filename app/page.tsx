@@ -1,12 +1,84 @@
-import { fetchCars } from "@utils";
-import { HomeProps } from "@types";
-import { fuels, yearsOfProduction } from "@constants";
-// import { CarCard, ShowMore, SearchBar, CustomFilter, Hero } from "@components";
-import { SearchBar, CustomFilter, Hero } from "@/components";
+import { fetchCars } from "@/utils";
+import { HomeProps } from "@/types";
+import { fuels, yearsOfProduction } from "@/constants";
+import { CarCard, ShowMore, SearchBar, CustomFilter, Hero } from "@/components";
+
+const mockCarData = [
+  {
+    city_mpg: 23,
+    class: "compact car",
+    combination_mpg: 24,
+    cylinders: 4,
+    displacement: 1.6,
+    drive: "fwd",
+    fuel_type: "gas",
+    highway_mpg: 26,
+    make: "toyota",
+    model: "corolla",
+    transmission: "a",
+    year: 1993,
+  },
+  {
+    city_mpg: 23,
+    class: "compact car",
+    combination_mpg: 26,
+    cylinders: 4,
+    displacement: 1.6,
+    drive: "fwd",
+    fuel_type: "gas",
+    highway_mpg: 31,
+    make: "toyota",
+    model: "corolla",
+    transmission: "m",
+    year: 1993,
+  },
+  {
+    city_mpg: 23,
+    class: "compact car",
+    combination_mpg: 25,
+    cylinders: 4,
+    displacement: 1.8,
+    drive: "fwd",
+    fuel_type: "gas",
+    highway_mpg: 30,
+    make: "toyota",
+    model: "corolla",
+    transmission: "a",
+    year: 1993,
+  },
+  {
+    city_mpg: 23,
+    class: "compact car",
+    combination_mpg: 26,
+    cylinders: 4,
+    displacement: 1.8,
+    drive: "fwd",
+    fuel_type: "gas",
+    highway_mpg: 30,
+    make: "toyota",
+    model: "corolla",
+    transmission: "m",
+    year: 1993,
+  },
+  {
+    city_mpg: 23,
+    class: "small station wagon",
+    combination_mpg: 25,
+    cylinders: 4,
+    displacement: 1.8,
+    drive: "fwd",
+    fuel_type: "gas",
+    highway_mpg: 30,
+    make: "toyota",
+    model: "corolla wagon",
+    transmission: "a",
+    year: 1993,
+  },
+];
 
 export default async function Home({ searchParams }: HomeProps) {
   const allCars = await fetchCars({
-    manufacturer: searchParams.manufacturer || "",
+    make: searchParams.make || "",
     year: searchParams.year || 2022,
     fuel: searchParams.fuel || "",
     limit: searchParams.limit || 10,
@@ -14,6 +86,8 @@ export default async function Home({ searchParams }: HomeProps) {
   });
 
   const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
+  // const isMockDataEmpty =
+  //   !Array.isArray(mockCarData) || mockCarData.length < 1 || !mockCarData;
 
   return (
     <main className="overflow-hidden">
@@ -36,7 +110,7 @@ export default async function Home({ searchParams }: HomeProps) {
 
         {!isDataEmpty ? (
           <section>
-            {/* <div className="home__cars-wrapper">
+            <div className="home__cars-wrapper">
               {allCars?.map((car) => (
                 <CarCard car={car} />
               ))}
@@ -45,7 +119,7 @@ export default async function Home({ searchParams }: HomeProps) {
             <ShowMore
               pageNumber={(searchParams.limit || 10) / 10}
               isNext={(searchParams.limit || 10) > allCars.length}
-            /> */}
+            />
           </section>
         ) : (
           <div className="home__error-container">

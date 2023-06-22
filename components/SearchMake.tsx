@@ -11,7 +11,7 @@ const Searchmake = ({ make, setMake }: SearchMakeProps) => {
   const filteredMakes =
     query === ""
       ? makes
-      : makes.filter((item: any) =>
+      : makes.filter((item) =>
           item
             .toLowerCase()
             .replace(/\s+/g, "")
@@ -58,7 +58,7 @@ const Searchmake = ({ make, setMake }: SearchMakeProps) => {
                   Create "{query}"
                 </Combobox.Option>
               ) : (
-                filteredMakes.map((item: any) => (
+                filteredMakes.map((item) => (
                   <Combobox.Option
                     key={item}
                     className={({ active }) =>
@@ -100,3 +100,5 @@ const Searchmake = ({ make, setMake }: SearchMakeProps) => {
     </div>
   );
 };
+
+export default Searchmake;
